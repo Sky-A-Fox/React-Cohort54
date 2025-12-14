@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;     
+  text-align: center;
+  gap: 1rem;
+  width: 100%;             /* растягиваем контейнер на всю ширину родителя */ 
+  color: rgb(175, 34, 34);
+}

@@ -1,0 +1,23 @@
+.app {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+.guarantees-list {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.guarantee {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 400px;
+}
+
+.guarantee img {
+  width: 100%;
+  height: auto;
+}
