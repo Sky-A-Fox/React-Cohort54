@@ -20,18 +20,25 @@ body {
   padding: 8px;
 }
 
-.categories button {
+/* Используем .category-button вместо .categories button */
+.category-button {
   padding: 4px 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background: #f5f5f5;
   cursor: pointer;
   font-size: 14px;
+  transition: all 0.2s ease;
 }
 
-.categories button.active {
+.category-button:hover {
+  background: #e0e0e0;
+}
+
+.category-button.active {
   background: #213547;
   color: #fff;
+  border-color: #213547;
 }
 
 /* ===== Products grid (adaptive) ===== */
@@ -53,6 +60,11 @@ body {
   width: 100%;
   max-width: 330px;
   box-sizing: border-box;
+  transition: box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* ===== Product image ===== */
@@ -68,18 +80,31 @@ body {
 /* ===== Product title ===== */
 .product-card h3 {
   font-size: 14px;
-  margin: 4px 0 0 0;  /* расстояние между картинкой и заголовком --- distance between image and title */
+  margin: 4px 0 0 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.product-card h3 a {
-  text-decoration: none;
+/* Используем класс вместо селектора по элементу */
+.product-title {
   color: #213547;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.product-card h3 a:hover {
+.product-title-link {
+  text-decoration: none;
+  color: #213547;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-title-link:hover {
   color: #646cff;
   text-decoration: underline;
 }

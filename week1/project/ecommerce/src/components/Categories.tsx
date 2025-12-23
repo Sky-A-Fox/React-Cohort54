@@ -1,11 +1,10 @@
+import { normalizeCategory } from '../utils/categories';
+
 interface CategoriesProps {
   categories: string[];
   selectedCategory: string | null;
   onSelect: (category: string) => void;
 }
-
-const normalizeCategory = (value: string): string =>
-  value.toLowerCase().replace("fake:", "").trim();
 
 function Categories({
   categories,
@@ -16,11 +15,10 @@ function Categories({
     <div className="categories">
       {categories.map((cat) => {
         const normalized = normalizeCategory(cat);
-
         return (
           <button
             key={cat}
-            className={normalized === selectedCategory ? "active" : ""}
+            className={`category-button ${normalized === selectedCategory ? "active" : ""}`}
             onClick={() => onSelect(normalized)}
           >
             {cat}
