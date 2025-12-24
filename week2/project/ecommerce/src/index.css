@@ -114,3 +114,11 @@ body {
   cursor: pointer;
   opacity: 0.9;
 }
+
+
+/* ===== Product Link Styling ===== */
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

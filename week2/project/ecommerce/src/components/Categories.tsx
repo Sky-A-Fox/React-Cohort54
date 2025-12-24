@@ -1,9 +1,7 @@
-import { normalizeCategory } from '../utils/categories';
-
 interface CategoriesProps {
   categories: string[];
   selectedCategory: string | null;
-  onSelect: (category: string) => void;
+  onSelect: (category: string | null) => void;
 }
 
 function Categories({
@@ -13,18 +11,25 @@ function Categories({
 }: CategoriesProps) {
   return (
     <div className="categories">
-      {categories.map((cat) => {
-        const normalized = normalizeCategory(cat);
-        return (
-          <button
-            key={cat}
-            className={`category-button ${normalized === selectedCategory ? "active" : ""}`}
-            onClick={() => onSelect(normalized)}
-          >
-            {cat}
-          </button>
-        );
-      })}
+      {/* Кнопка "Все товары" */}
+      <button
+        key="all"
+        className={`category-button ${selectedCategory === null ? "active" : ""}`}
+        onClick={() => onSelect(null)}
+      >
+        All Products
+      </button>
+      
+      {/* Категории из API */}
+      {categories.map((category) => (
+        <button
+          key={category}
+          className={`category-button ${category === selectedCategory ? "active" : ""}`}
+          onClick={() => onSelect(category)}
+        >
+          {category}
+        </button>
+      ))}
     </div>
   );
 }

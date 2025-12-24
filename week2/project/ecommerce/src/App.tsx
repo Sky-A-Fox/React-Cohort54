@@ -1,36 +1,14 @@
-import { useState } from "react";
-import products from "./fake-data/all-products";
-import categories from "./fake-data/all-categories";
-import Categories from "./components/Categories";
-import ProductsList from "./components/ProductList";
-import { normalizeCategory } from './utils/categories';
-
-/**
- * Убираем префикс "FAKE:" и приводим к нижнему регистру  ---- Remove "FAKE:" prefix and convert to lowercase
- */
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  // Фильтруем товары по выбранной категории ---- Filter products by selected category
-  const filteredProducts = selectedCategory
-    ? products.filter(
-        (product) =>
-          normalizeCategory(product.category) === selectedCategory
-      )
-    : products;
-
   return (
     <div>
-      {/* Список категорий --- Categories list */}
-      <Categories
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onSelect={setSelectedCategory}
-      />
-
-      {/* Список товаров --- Products list */}
-      <ProductsList products={filteredProducts} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/product/:id" element={<ProductPage />} />
+      </Routes>
     </div>
   );
 }
