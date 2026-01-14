@@ -1,5 +1,8 @@
 # Ecommerce Project II
 
+# link for netify
+https://694c294befaca98a9c26c28b--curious-raindrop-43ade5.netlify.app/
+
 ## 1. Setup
 
 Make sure you created a new week2 branch from the `main` branch of your forked repo. Then copy over the `ecommerce` folder you made last week into the `week2/project` folder. That way any feedback you get for week1 can be changed in the week1 branch and you are free to refactor this week as you see fit. This does mean you may need to apply the same changes to multiple branches, but let's say that that is good for the learning process :).
