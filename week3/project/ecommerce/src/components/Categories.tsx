@@ -11,7 +11,7 @@ function Categories({
 }: CategoriesProps) {
   return (
     <div className="categories">
-      {/* Кнопка "Все товары" */}
+      {/* button for all products */}
       <button
         key="all"
         className={`category-button ${selectedCategory === null ? "active" : ""}`}
@@ -19,8 +19,8 @@ function Categories({
       >
         All Products
       </button>
-      
-      {/* Категории из API */}
+
+      {/* API categories */}
       {categories.map((category) => (
         <button
           key={category}

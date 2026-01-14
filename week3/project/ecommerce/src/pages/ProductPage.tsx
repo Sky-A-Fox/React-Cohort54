@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
+// src/pages/ProductPage.tsx
 import { useParams } from 'react-router-dom';
+import HeartButton from '../components/HeartButton';
+import useFetch from '../hooks/useFetch';
+import './ProductPage.css';
 
 interface ProductDetails {
   id: number;
@@ -16,61 +19,65 @@ interface ProductDetails {
 
 function ProductPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState<ProductDetails | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  
+  // Используем useFetch хук для загрузки товара === Use useFetch hook to load product
+  const { 
+    data: product, 
+    loading, 
+    error 
+  } = useFetch<ProductDetails>(
+    id ? `https://fakestoreapi.com/products/${id}` : ''
+  );
 
-  useEffect(() => {
-    if (!id) return;
-
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Product not found');
-        return res.json();
-      })
-      .then(data => {
-        setProduct(data);
-        setError(null);
-      })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [id]);
-
-  if (loading) return <div style={{ padding: '20px', textAlign: 'center' }}>Loading product details...</div>;
-  if (error) return <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>;
-  if (!product) return <div style={{ padding: '20px' }}>Product not found</div>;
+  // Показываем состояние загрузки === Show loading state
+  if (loading) {
+    return <div className="product-page-loading">Loading product details...</div>;
+  }
+  
+  // Показываем ошибку, если есть === Show error if exists
+  if (error) {
+    return <div className="product-page-error">Error: {error}</div>;
+  }
+  
+  // Если товар не найден === If product not found
+  if (!product) {
+    return <div className="product-page-not-found">Product not found</div>;
+  }
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div>
-          <h1>{product.title}</h1>
-          <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#213547' }}>
-            ${product.price.toFixed(2)}
-          </p>
+    <div className="product-page">
+      {/* Заголовок и цена === Show title and price */}
+      <div className="product-header">
+        <div className="product-title-section">
+          <h1 className="product-title">{product.title}</h1>
+          <p className="product-price">${product.price.toFixed(2)}</p>
         </div>
         
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <img 
-            src={product.image} 
-            alt={product.title} 
-            style={{ maxWidth: '300px', height: 'auto', margin: '0 auto' }}
-          />
-          
-          <div>
-            <h3>Description</h3>
-            <p>{product.description}</p>
-          </div>
-          
-          <div>
-            <h3>Category</h3>
-            <p>{product.category}</p>
-          </div>
-          
-          <div>
-            <h3>Rating</h3>
-            <p>{product.rating.rate} / 5 ({product.rating.count} reviews)</p>
-          </div>
+        <div className="heart-button-container">
+          <HeartButton productId={product.id} isAbsolute={false} />
+        </div>
+      </div>
+      
+      <div className="product-content">
+        <img 
+          src={product.image} 
+          alt={product.title} 
+          className="product-image"
+        />
+        
+        <div className="product-section">
+          <h3>Description</h3>
+          <p>{product.description}</p>
+        </div>
+        
+        <div className="product-section">
+          <h3>Category</h3>
+          <p>{product.category}</p>
+        </div>
+        
+        <div className="product-section">
+          <h3>Rating</h3>
+          <p>{product.rating.rate} / 5 ({product.rating.count} reviews)</p>
         </div>
       </div>
     </div>
