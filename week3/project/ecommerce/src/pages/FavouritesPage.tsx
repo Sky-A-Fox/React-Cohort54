@@ -2,8 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useFavourites } from '../context/FavouritesContext';
 import ProductsList from '../components/ProductList';
-import './FavouritesPage.css'; // ← Добавь импорт
-
+import './FavouritesPage.css';
 interface Product {
   id: number;
   title: string;
