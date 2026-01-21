@@ -1,0 +1,42 @@
+export const initialCategories = [
+  {
+    id: 1,
+    name: "Housing",
+    planned: 1200,
+    actual: 0,
+    isEssential: true,
+    color: "#FF6B6B",
+  },
+  {
+    id: 2,
+    name: "Food",
+    planned: 400,
+    actual: 0,
+    isEssential: true,
+    color: "#4ECDC4",
+  },
+  {
+    id: 3,
+    name: "Transport",
+    planned: 200,
+    actual: 0,
+    isEssential: true,
+    color: "#45B7D1",
+  },
+  {
+    id: 4,
+    name: "Entertainment",
+    planned: 300,
+    actual: 0,
+    isEssential: false,
+    color: "#96CEB4",
+  },
+  {
+    id: 5,
+    name: "Health",
+    planned: 150,
+    actual: 0,
+    isEssential: true,
+    color: "#FFEAA7",
+  },
+];
