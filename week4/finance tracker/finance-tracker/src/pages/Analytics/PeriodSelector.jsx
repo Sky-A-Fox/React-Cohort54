@@ -155,9 +155,9 @@ const Summary = styled.div`
   }
 `;
 
-// Функция для расчёта данных месяца - СОГЛАСОВАНА С BUDGET
+// Функция для расчёта данных месяца - СОГЛАСОВАНА С BUDGET - calculate month data consistently with Budget
 const calculateMonthData = (monthData) => {
-  // В Budget используется income, а не budget
+  // В Budget используется income, а не budget - in Budget income is used, not budget
   const income =
     monthData.income !== undefined
       ? monthData.income
@@ -187,7 +187,7 @@ const calculateMonthData = (monthData) => {
     );
   }
 
-  // Баланс = Income - TotalActual (как в Budget)
+  // balance like in budget
   const balance = income - totalActual;
 
   const categoryCount = monthData.categories?.length || 0;
@@ -203,7 +203,7 @@ export default function PeriodSelector({
   const [isOpen, setIsOpen] = useState(true);
   const [selectedMonths, setSelectedMonths] = useState(initialSelected);
 
-  // Сортируем месяцы (используем useMemo чтобы не пересчитывать каждый рендер)
+  // Сортируем месяцы (используем useMemo чтобы не пересчитывать каждый рендер) - sort months
   const sortedMonths = useMemo(() => {
     return [...availableMonths].sort((a, b) => {
       if (a.year !== b.year) return b.year - a.year;
@@ -211,7 +211,7 @@ export default function PeriodSelector({
     });
   }, [availableMonths]);
 
-  // Инициализация выбранных месяцев
+  // Инициализация выбранных месяцев - if initialSelected changes (rewrite for dry code)
   useEffect(() => {
     if (initialSelected.length > 0) {
       setSelectedMonths(initialSelected);
@@ -220,7 +220,7 @@ export default function PeriodSelector({
     }
   }, [initialSelected, sortedMonths]);
 
-  // Уведомляем родителя об изменении выбора
+  // Уведомляем родителя об изменении выбора - useCallback (remove for dry code)
   const handleSelectionChange = useCallback(
     (newSelection) => {
       setSelectedMonths(newSelection);

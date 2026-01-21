@@ -55,7 +55,7 @@ export default function CategoryTable({ categories, onUpdate, onDelete }) {
             key={category.id}
             category={category}
             onUpdate={onUpdate}
-            onDelete={onDelete} // ✅ Передаем функцию удаления
+            onDelete={onDelete}
           />
         ))}
       </TableBody>

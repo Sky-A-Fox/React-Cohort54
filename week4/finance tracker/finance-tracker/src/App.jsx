@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { FinanceProvider } from "./context/FinanceContext";
-import Header from "./components/layout/Header"; // ✅ правильный путь
-import Navigation from "./components/layout/Navigation"; // ✅ правильный путь
+import Header from "./components/layout/Header";
+import Navigation from "./components/layout/Navigation";
 import Home from "./pages/Home/Home";
 import Budget from "./pages/Budget/Budget";
-//import SimpleCalculator from "./pages/Calculator/SimpleCalculator";
 import Calculator from "./pages/Calculator/Calculator";
 import Analytics from "./pages/Analytics/Analytics";
 

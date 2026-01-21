@@ -10,7 +10,7 @@ const StyledButton = styled.button`
       case "success":
         return "#28a745";
       case "danger":
-        return "#dc3545"; // ✅ Добавляем danger вариант
+        return "#dc3545";
       case "outline":
         return "#689fd6";
       default:
@@ -56,7 +56,7 @@ export default function Button({
   onClick,
   disabled,
   type = "button",
-  title = "", // ✅ Добавляем title для тултипов
+  title = "", 
 }) {
   return (
     <StyledButton

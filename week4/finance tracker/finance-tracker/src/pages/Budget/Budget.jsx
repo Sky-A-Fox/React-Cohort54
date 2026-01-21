@@ -25,7 +25,6 @@ export default function Budget() {
     deleteCategory,
     totalPlanned,
     totalActual,
-    income, // ← Теперь используется!
     saveMonth,
     clearCategories,
     loadMonthData,
@@ -81,9 +80,6 @@ export default function Budget() {
         return true;
     }
   });
-
-  // ИСПРАВЛЕНО: Используем income для расчёта баланса
-  const overallBalance = (income || 0) - totalActual;
 
   return (
     <PageContainer>

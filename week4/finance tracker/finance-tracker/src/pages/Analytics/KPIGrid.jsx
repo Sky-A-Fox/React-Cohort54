@@ -53,7 +53,7 @@ const KPIChange = styled.div`
 `;
 
 export default function KPIGrid({ kpis }) {
-  // ЗАЩИТА ОТ UNDEFINED
+  // ЗАЩИТА ОТ UNDEFINED - defensive check
   if (!kpis) {
     return (
       <GridContainer>
@@ -72,12 +72,12 @@ export default function KPIGrid({ kpis }) {
     );
   }
 
-  // Извлекаем значения с защитой по умолчанию - ОБНОВЛЕНО
+  // Извлекаем значения с защитой по умолчанию - destructure with defaults
   const {
-    totalPlanned = 0, // ← БЮДЖЕТ вместо income
+    totalPlanned = 0,
     totalActual = 0,
     balance = 0,
-    budgetUsage = 0, // ← Budget Usage вместо savingsRate
+    budgetUsage = 0, // ← Budget Usage вместо savingsRate 
     essentialRatio = 0,
     isAggregated = false,
     monthCount = 1,
@@ -92,7 +92,7 @@ export default function KPIGrid({ kpis }) {
     }).format(amount);
   };
 
-  // Форматируем значения для агрегированных данных - ОБНОВЛЕНО
+  // Форматируем значения для агрегированных данных - format values for aggregated data
   const budgetValue = isAggregated
     ? `${formatCurrency(totalPlanned)} (${monthCount} months)`
     : formatCurrency(totalPlanned);
@@ -101,7 +101,7 @@ export default function KPIGrid({ kpis }) {
     ? `${formatCurrency(totalActual)} (avg: ${formatCurrency(totalActual / monthCount)}/mo)`
     : formatCurrency(totalActual);
 
-  // Используем значения с защитой - ОБНОВЛЕНО
+  // Используем значения с защитой - use values with defaults
   const budgetUsageValue =
     typeof budgetUsage === "number" ? budgetUsage.toFixed(1) : "0.0";
   const essentialRatioValue =
@@ -109,23 +109,23 @@ export default function KPIGrid({ kpis }) {
 
   return (
     <GridContainer>
-      {/* КАРТОЧКА 1: БЮДЖЕТ вместо INCOME */}
+      {/* КАРТОЧКА 1: БЮДЖЕТ вместо INCOME - card 1 budget*/}
       <KPICard color="#1976d2">
         {" "}
-        {/* Синий цвет для Budget */}
+        {/* color for Budget */}
         <KPITitle>
           <DollarSign size={16} />
           {isAggregated ? "Total Budget" : "Monthly Budget"} {/* ← Budget */}
         </KPITitle>
-        <KPIValue>{budgetValue}</KPIValue> {/* ← totalPlanned */}
+        <KPIValue>{budgetValue}</KPIValue> {/*  totalPlanned */}
         <KPIChange $positive>
           <TrendingUp size={14} />
           {isAggregated ? "Aggregated data" : "Planned spending"}{" "}
-          {/* ← Обновленный текст */}
+          {/*  Обновленный текст - new text */}
         </KPIChange>
       </KPICard>
 
-      {/* КАРТОЧКА 2: ПОТРАЧЕНО (оставляем как было) */}
+      {/* КАРТОЧКА 2 - card 2 */}
       <KPICard color="#F44336">
         <KPITitle>
           <TrendingDown size={16} />
@@ -140,18 +140,18 @@ export default function KPIGrid({ kpis }) {
         </KPIChange>
       </KPICard>
 
-      {/* КАРТОЧКА 3: BUDGET USAGE вместо SAVINGS RATE */}
+      {/* КАРТОЧКА 3: BUDGET USAGE instead of SAVINGS RATE */}
       <KPICard color="#2196F3">
         <KPITitle>
           <PieChart size={16} />
-          Budget Usage {/* ← вместо Savings Rate */}
+          Budget Usage {/* BUDGET USAGE */}
         </KPITitle>
         <KPIValue>{budgetUsageValue}%</KPIValue> {/* ← budgetUsage */}
         <KPIChange $positive={budgetUsage <= 80}>
           {" "}
-          {/* ← Логика для Budget Usage */}
+          {/* ← logic for Budget Usage */}
           {budgetUsage <= 80 ? "Good control! 👍" : "High spending"}{" "}
-          {/* ← Обновленный текст */}
+          {}
         </KPIChange>
       </KPICard>
 

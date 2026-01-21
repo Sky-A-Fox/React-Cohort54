@@ -14,9 +14,9 @@ const DashboardContainer = styled.div`
   min-height: calc(100vh - 180px);
 `;
 
-// ФУНКЦИЯ ДЛЯ РАСЧЁТА ДАННЫХ МЕСЯЦА - СИНХРОНИЗИРОВАНА С BUDGET
+// ФУНКЦИЯ ДЛЯ РАСЧЁТА ДАННЫХ МЕСЯЦА - СИНХРОНИЗИРОВАНА С BUDGET - calculate month data synced with Budget
 const calculateMonthData = (monthData) => {
-  // БЮДЖЕТ (totalPlanned) - как в Budget
+
   const totalPlanned =
     monthData.summary?.totalPlanned !== undefined
       ? monthData.summary.totalPlanned
@@ -25,7 +25,7 @@ const calculateMonthData = (monthData) => {
           0
         ) || 0;
 
-  // Фактические траты (totalActual) - как в Budget
+  // Фактические траты (totalActual)
   let totalActual = 0;
   if (monthData.summary?.totalActual !== undefined) {
     totalActual = monthData.summary.totalActual;
@@ -38,16 +38,16 @@ const calculateMonthData = (monthData) => {
     );
   }
 
-  // Баланс = Бюджет - Фактические траты (как в Budget)
+  // balance
   const balance = totalPlanned - totalActual;
 
-  // Количество категорий
+  // categoryCount
   const categoryCount = monthData.categories?.length || 0;
 
   return { totalPlanned, totalActual, balance, categoryCount };
 };
 
-// Функция для расчёта essential расходов
+// function to calculate essential spent
 const calculateEssentialSpent = (monthData) => {
   if (!monthData.categories) return 0;
 
@@ -62,7 +62,7 @@ export default function Analytics() {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [availableMonths, setAvailableMonths] = useState([]);
 
-  // ПЕРЕНОСИМ ВСЕ ФУНКЦИИ ПЕРЕД useEffect
+  
   const checkForData = () => {
     const monthlyData = JSON.parse(localStorage.getItem("monthlyData") || "{}");
     const budgetCategories = JSON.parse(
@@ -75,11 +75,10 @@ export default function Analytics() {
     if (Object.keys(monthlyData).length > 0 || budgetCategories.length > 0) {
       setHasData(true);
 
-      // По умолчанию выбираем последний месяц, если есть сохраненные
       if (monthsList.length > 0) {
         setSelectedMonths([monthsList[0].id]);
       } else {
-        // Иначе используем текущий бюджет
+
         calculateFromCurrentBudget();
       }
     }
@@ -103,7 +102,7 @@ export default function Analytics() {
       });
     });
 
-    // Сортируем по дате (новые сначала)
+    // Сортируем по дате (новые сначала) - sort by date (newest first)
     months.sort((a, b) => {
       const dateA = new Date(a.year, a.month, 1);
       const dateB = new Date(b.year, b.month, 1);
@@ -137,10 +136,10 @@ export default function Analytics() {
       totalActual > 0 ? (essentialSpent / totalActual) * 100 : 0;
 
     setKpis({
-      totalPlanned, // ← БЮДЖЕТ
-      totalActual, // ← Фактические траты
+      totalPlanned, 
+      totalActual,
       balance,
-      budgetUsage, // ← % использования бюджета
+      budgetUsage, // ← % использования бюджета 
       essentialRatio,
       categoryCount: budgetCategories.length,
       isAggregated: false,
@@ -148,7 +147,7 @@ export default function Analytics() {
     });
   };
 
-  // Функция aggregateMonthsData - БЮДЖЕТ вместо INCOME
+  // Функция aggregateMonthsData - budget - income
   const aggregateMonthsData = (months) => {
     const aggregated = months.reduce(
       (acc, month) => {
@@ -187,10 +186,10 @@ export default function Analytics() {
         : 0;
 
     return {
-      totalPlanned: aggregated.totalPlanned, // ← БЮДЖЕТ
-      totalActual: aggregated.totalActual, // ← Фактические траты
+      totalPlanned: aggregated.totalPlanned, 
+      totalActual: aggregated.totalActual,
       balance,
-      budgetUsage, // ← % использования бюджета
+      budgetUsage,
       essentialRatio,
       categoryCount: Math.round(avgCategories),
       isAggregated: true,
@@ -200,12 +199,12 @@ export default function Analytics() {
 
   const handlePeriodChange = (selectedMonthIds) => {
     if (selectedMonthIds.length === 0) {
-      // Если ничего не выбрано, показываем текущий бюджет
+      // Если ничего не выбрано, показываем текущий бюджет - if none selected, show current budget
       calculateFromCurrentBudget();
       return;
     }
 
-    // Загружаем данные выбранных месяцев
+    // Загружаем данные выбранных месяцев - load data for selected months
     const selectedMonthsData = availableMonths.filter((month) =>
       selectedMonthIds.includes(month.id)
     );
@@ -218,7 +217,7 @@ export default function Analytics() {
     }
   };
 
-  // ТЕПЕРЬ useEffect
+  // only now useeffect
   useEffect(() => {
     checkForData();
   }, []);

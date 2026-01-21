@@ -1,4 +1,4 @@
-// 1. Функция загрузки месяцев (как в LoadMonthModal.jsx)
+// Функция загрузки месяцев - loadAvailableMonths
 export const loadAvailableMonths = () => {
   const savedData = JSON.parse(localStorage.getItem("monthlyData") || "{}");
   const months = [];
@@ -17,17 +17,17 @@ export const loadAvailableMonths = () => {
     });
   });
 
-  // Сортировка по дате месяца (январь 2023, февраль 2023...)
+  // Сортируем по дате (новые сначала) - sort by date (newest first)
   months.sort((a, b) => {
     const dateA = new Date(a.year, a.month, 1);
     const dateB = new Date(b.year, b.month, 1);
-    return dateB.getTime() - dateA.getTime(); // новые первыми
+    return dateB.getTime() - dateA.getTime();
   });
 
   return months;
 };
 
-// 2. Функция расчёта данных месяца (ЕДИНАЯ ДЛЯ ВСЕХ!)
+// Функция расчёта данных месяца - calculateMonthData
 export const calculateMonthData = (monthData) => {
   // Доход: проверяем несколько мест
   const income =
@@ -37,24 +37,21 @@ export const calculateMonthData = (monthData) => {
         ? monthData.summary.income
         : 0;
 
-  // Потрачено: считаем из категорий ИЛИ берем из summary
   let totalSpent = 0;
 
-  // Сначала пробуем из summary
+  // Сначала пробуем из summary - try summary first
   if (monthData.summary?.totalSpent !== undefined) {
     totalSpent = monthData.summary.totalSpent;
   }
-  // Иначе считаем из категорий
+  // Иначе считаем из категорий - else calculate from categories
   else if (monthData.categories && monthData.categories.length > 0) {
     totalSpent = monthData.categories.reduce((sum, cat) => {
       return sum + (cat.actual || 0);
     }, 0);
   }
 
-  // Баланс
   const balance = income - totalSpent;
 
-  // Количество категорий
   const categoryCount = monthData.categories?.length || 0;
 
   return {
@@ -62,12 +59,11 @@ export const calculateMonthData = (monthData) => {
     totalSpent,
     balance,
     categoryCount,
-    // Дополнительные данные для отладки
     rawData: monthData,
   };
 };
 
-// 3. Функция расчёта essential расходов
+//Функция расчёта essential расходов - calculateEssentialSpent
 export const calculateEssentialSpent = (monthData) => {
   if (!monthData.categories) return 0;
 
@@ -76,7 +72,7 @@ export const calculateEssentialSpent = (monthData) => {
     .reduce((sum, cat) => sum + (cat.actual || 0), 0);
 };
 
-// 4. Функция агрегации данных по нескольким месяцам (для Analytics)
+// Функция агрегации данных по нескольким месяцам (для Analytics) - aggregateMonthsData (analytics)
 export const aggregateMonthsData = (months) => {
   const aggregated = months.reduce(
     (acc, month) => {
@@ -114,7 +110,7 @@ export const aggregateMonthsData = (months) => {
 
   return {
     income: aggregated.totalIncome,
-    totalPlanned: aggregated.totalSpent, // В аналитике используем spent как planned
+    totalPlanned: aggregated.totalSpent, // В аналитике используем spent как planned - use spent as planned in analytics
     totalActual: aggregated.totalSpent,
     balance,
     savingsRate,
@@ -125,7 +121,7 @@ export const aggregateMonthsData = (months) => {
   };
 };
 
-// 5. Функция форматирования валюты
+// Функция форматирования валюты - formatCurrency
 export const formatCurrency = (amount) => {
   return new Intl.NumberFormat("de-DE", {
     style: "currency",
@@ -135,7 +131,7 @@ export const formatCurrency = (amount) => {
   }).format(amount);
 };
 
-// 6. Функция получения имени месяца
+// Функция получения имени месяца - getMonthName
 export const getMonthName = (monthIndex) => {
   const monthNames = [
     "January",

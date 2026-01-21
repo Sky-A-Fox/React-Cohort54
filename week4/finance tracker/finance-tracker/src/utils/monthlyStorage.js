@@ -1,13 +1,13 @@
-// Утилиты для работы с месячными данными
+// Утилиты для работы с месячными данными - utilities for monthly data management
 export const saveCurrentMonth = (categories, monthlyIncome) => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  // Загружаем существующие данные
+  // Загружаем существующие данные - load existing data
   const savedData = JSON.parse(localStorage.getItem("monthlyData") || "{}");
 
-  // Структурируем данные для текущего месяца
+  // Структурируем данные для текущего месяца - structure data for current month
   const monthData = {
     timestamp: new Date().toISOString(),
     income: monthlyIncome,
@@ -27,7 +27,7 @@ export const saveCurrentMonth = (categories, monthlyIncome) => {
     },
   };
 
-  // Сохраняем
+  // Сохраняем данные в localStorage - save data to localStorage
   if (!savedData[year]) savedData[year] = {};
   savedData[year][month] = monthData;
 
@@ -73,7 +73,7 @@ export const archiveCurrentMonth = () => {
   const monthData = savedData[year]?.[month];
 
   if (monthData) {
-    // Помечаем как архивированный
+    // Помечаем как архивированный - mark as archived
     monthData.archived = true;
     monthData.archivedAt = new Date().toISOString();
 
@@ -90,7 +90,7 @@ export const deleteMonthData = (year, month) => {
   if (savedData[year] && savedData[year][month]) {
     delete savedData[year][month];
 
-    // Удаляем год, если в нём больше нет месяцев
+    // Удаляем год, если в нём больше нет месяцев - remove year if no months left
     if (Object.keys(savedData[year]).length === 0) {
       delete savedData[year];
     }

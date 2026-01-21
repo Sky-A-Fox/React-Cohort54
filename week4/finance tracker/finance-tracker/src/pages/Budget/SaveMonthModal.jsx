@@ -75,17 +75,17 @@ const Select = styled.select`
   font-size: 16px;
   background: white;
   cursor: pointer;
-  color: #333; /* ✅ Добавили цвет текста */
+  color: #333;
 
   &:focus {
     outline: none;
     border-color: #667eea;
   }
 
-  /* Стили для опций */
+  /* Стили для опций - option styles */
   option {
     background: white;
-    color: #333; /* ✅ Цвет текста опций */
+    color: #333;
     padding: 10px;
   }
 `;
@@ -96,7 +96,7 @@ const Input = styled.input`
   border: 2px solid #dee2e6;
   border-radius: 8px;
   font-size: 16px;
-  color: #333; /* ✅ Добавили цвет текста */
+  color: #333;
 
   &:focus {
     outline: none;
@@ -118,7 +118,7 @@ const MonthNameInput = styled.div`
     border-radius: 6px;
     font-size: 14px;
     margin-top: 5px;
-    color: #333; /* ✅ Добавили цвет текста */
+    color: #333;
 
     &:focus {
       outline: none;
@@ -201,7 +201,7 @@ export default function SaveMonthModal({
           <Select
             value={selectedYear}
             onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-            style={{ color: "#333" }} /* ✅ Инлайн стиль для надёжности */
+            style={{ color: "#333" }}
           >
             {getYears().map((year) => (
               <option
@@ -210,7 +210,7 @@ export default function SaveMonthModal({
                 style={{
                   color: "#333",
                   backgroundColor: "white",
-                }} /* ✅ Стили для опций */
+                }} /* Стили для опций - option styles */
               >
                 {year}
               </option>
@@ -223,7 +223,7 @@ export default function SaveMonthModal({
           <Select
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-            style={{ color: "#333" }} /* ✅ Инлайн стиль для надёжности */
+            style={{ color: "#333" }} /* Инлайн стиль для надёжности - extra repeating*/
           >
             {Array.from({ length: 12 }, (_, i) => (
               <option
@@ -232,7 +232,7 @@ export default function SaveMonthModal({
                 style={{
                   color: "#333",
                   backgroundColor: "white",
-                }} /* ✅ Стили для опций */
+                }} /* Стили для опций - option styles */
               >
                 {getMonthName(i)}
               </option>

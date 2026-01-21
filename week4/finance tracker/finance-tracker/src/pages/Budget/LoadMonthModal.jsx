@@ -153,7 +153,7 @@ export default function LoadMonthModal({
   const loadAvailableMonths = () => {
     const savedData = JSON.parse(localStorage.getItem("monthlyData") || "{}");
 
-    // Функция для получения и сортировки месяцев
+    // Функция для получения и сортировки месяцев - function to get and sort months
     const months = [];
     Object.keys(savedData).forEach((year) => {
       Object.keys(savedData[year]).forEach((month) => {
@@ -169,7 +169,7 @@ export default function LoadMonthModal({
       });
     });
 
-    // Сортируем по дате (новые сначала)
+    // Сортируем по дате (новые сначала) - sort by date (newest first)
     months.sort((a, b) => {
       const dateA = new Date(a.year, a.month, 1);
       const dateB = new Date(b.year, b.month, 1);
@@ -214,8 +214,7 @@ export default function LoadMonthModal({
                 month.year === new Date().getFullYear() &&
                 month.month === new Date().getMonth();
 
-              // РАСЧЁТ ДАННЫХ:
-              // 1. Бюджет (totalPlanned)
+              // РАСЧЁТ ДАННЫХ: - CALCULATE DATA:
               const totalPlanned =
                 month.data.summary?.totalPlanned ||
                 month.data.categories?.reduce(
@@ -224,7 +223,6 @@ export default function LoadMonthModal({
                 ) ||
                 0;
 
-              // 2. Потрачено (totalSpent)
               const totalSpent =
                 month.data.summary?.totalSpent ||
                 month.data.categories?.reduce(
@@ -233,13 +231,10 @@ export default function LoadMonthModal({
                 ) ||
                 0;
 
-              // 3. Баланс = Бюджет - Потрачено
               const balance = totalPlanned - totalSpent;
 
-              // 4. Количество категорий
               const categoryCount = month.data.categories?.length || 0;
 
-              // 5. Дата сохранения
               const saveDate = month.data.timestamp
                 ? new Date(month.data.timestamp).toLocaleDateString()
                 : "No date";

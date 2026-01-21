@@ -1,6 +1,5 @@
-// Обновляем calculateMonthData:
+// Обновляем calculateMonthData: - update calculateMonthData:
 export const calculateMonthData = (monthData) => {
-  // Budget (totalPlanned)
   const totalPlanned =
     monthData.summary?.totalPlanned ||
     monthData.categories?.reduce((sum, cat) => sum + (cat.planned || 0), 0) ||
@@ -19,13 +18,13 @@ export const calculateMonthData = (monthData) => {
   // Balance = Budget - Spent
   const balance = totalPlanned - totalSpent;
 
-  // Количество категорий
+  // Количество категорий - number of categories
   const categoryCount = monthData.categories?.length || 0;
 
   return {
-    totalPlanned, // ← Бюджет
-    totalSpent, // ← Потрачено
-    balance, // ← Баланс
+    totalPlanned, // ← Бюджет - budget
+    totalSpent, // ← Потрачено - spent
+    balance, // ← Баланс - balance
     categoryCount,
   };
 };
