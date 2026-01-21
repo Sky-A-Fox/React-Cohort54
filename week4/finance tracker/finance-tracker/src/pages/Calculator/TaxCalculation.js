@@ -5,7 +5,7 @@ import {
   MONTHS_PER_YEAR,
   HOURS_PER_WEEK,
   WEEKS_PER_YEAR,
-} from "./constants/taxRates2024";
+} from "./constants/TaxRates2024.js";
 
 const HOURS_PER_YEAR = HOURS_PER_WEEK * WEEKS_PER_YEAR;
 
